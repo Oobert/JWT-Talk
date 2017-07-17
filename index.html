@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/vs.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section data-markdown>
+					<textarea data-template>
+						## Securing your campground with JSON Web Tokens (JWTs)
+					</textarea>
+				</section>
+
+
+				<section data-markdown>
+					<textarea data-template>
+						## Who am I?
+
+						![Tony's Picture](/img/7I61NsID.jpg "") <!-- .element: style="width: 200px;" -->
+						* Tony Gemoll - @Oobert - tony.gemoll@gmail.com
+						* Enterprise Architect at Northwestern Mutual
+						* Organizer of Milwaukee JavaScript User Group
+
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Warning!
+
+						* This is an intro
+						* Code, is demo code
+						* Security is hard, Do your homework
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Cookies, quick recap
+
+						* Cookie holds session ID
+						* Session state stored on server
+
+						Note:
+						* Hard to share cookies across domain
+						* scaling issues, session state storage
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Why JWTs?
+						* JWTs require no server state
+						* CORS
+						* CSRF protection if stored in local storage
+						* Native mobile friendly
+
+						Note:
+						* Can scale horizontal
+						* CORS enable api, easy sharing
+						* Cross site request forgery
+						  * Short life span of JWT
+						* Native mobile and cookies is a mess
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## What's a JWT?!
+
+						* JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.
+
+						Example:
+						```javascript
+						eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6InowMzl6ZHNGdWl6cEJmQlZLMVRuMjVRSFlPMCIsImtpZCI6InowMzl6ZHNGdWl6cEJmQlZLMVRuMjVRSFlPMCJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLndpbmRvd3MubmV0LyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzZlZGRkMTg1LTdhZDctNGVlMy05NDgxLTA0NjQ0YjlmNDNhMi8iLCJpYXQiOjE0OTQ1MTExNjksIm5iZiI6MTQ5NDUxMTE2OSwiZXhwIjoxNDk0NTE1MDY5LCJhY3IiOiIxIiwiYWlvIjoiWTJaZ1lHanV1SnQ4K20rZVg2REtYTDJpYzMveUZqRVZPeHZ4ZkQ5cXd2N3BncHF5RlE4QSIsImFtciI6WyJwd2QiLCJyc2EiLCJtZmEiXSwiYXBwaWQiOiIzNzk1MmFhNS1hMGZmLTQ1NjgtYjI2ZC1iZGE5YTE5NDI5MDIiLCJhcHBpZGFjciI6IjAiLCJkZXZpY2VpZCI6ImZiYTdjZDg2LTIwMGItNGJmZi1hNjJkLTEyN2Q4NmZjNjgyOCIsImVfZXhwIjoyNjI3OTksImZhbWlseV9uYW1lIjoiR0VNT0xMIiwiZ2l2ZW5fbmFtZSI6IkFOVEhPTlkiLCJpcGFkZHIiOiIyMTYuMjAuMTc2LjE0IiwibmFtZSI6IkdFTU9MTCwgQU5USE9OWSIsIm9pZCI6ImVkMzY3MjJmLWFiZmEtNDI4OS1hN2ZmLTdmOWZlZmU2YjM5OCIsIm9ucHJlbV9zaWQiOiJTLTEtNS0yMS0xMzYzODgyMDIwLTMwNzY0NTY2MDgtMjI4MDA2NjA2Mi0xMDMxNjIxMCIsInBsYXRmIjoiMSIsInB1aWQiOiIxMDAzN0ZGRTk4NjQ4OEM0Iiwic2NwIjoiVXNlci5SZWFkIiwic3ViIjoic2hPeGtIMDFIeGVnMzZHeU85SnRJb1hfdG0ydk0yTWhwM2hSX3picWl4cyIsInRpZCI6IjZlZGRkMTg1LTdhZDctNGVlMy05NDgxLTA0NjQ0YjlmNDNhMiIsInVuaXF1ZV9uYW1lIjoiYW50aG9ueWdlbW9sbEBubWNvcC5jb20iLCJ1cG4iOiJhbnRob255Z2Vtb2xsQG5tY29wLmNvbSIsInV0aSI6IkZlOHhHeDU4TUVLdkJTSkxBZ3NNQUEiLCJ2ZXIiOiIxLjAifQ.mEiGaBU8GfBP-H8ywDBwi0uofEJrpjT3LH0jr-SZPOhSE987LJlucXwTtzpviZeutHnFY_bcZBM-fxdcIPoQNdcd2KIcwkFj9avjScIXRh8fOQW0EpOafONtsNQNrsyvHkP7iUFMqpPFDc4N1HmPWe3Kjl1Negdfz5P2zR9lk47oGBsjVe4UzsUeQyha6U8qYp3pnHjgs4AxN10lNBnD2g6rC1_-3m-VaVfkNY3-ZAUUpEeqb_RCHAFf3XnQiBGaPHeagEFkb7XjLWWopgTrsLnZxGORWkuDcv_BcTJfjqFJjXH8-nSXv2KJn1EhxdktAnGGad5gGuIMVQkh88iwQA
+						```
+
+						Note:
+						* Explain:
+						  * Compact
+						  * Self contained
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## The JWT is a lie
+
+						So is the bacon... maybe...
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## The JWT is a lie
+
+						![JWT pic](img/1-rw1iGL8kdjSI3hNYIiSXNw.png) <!-- .element: style="width: 80vh;" -->
+
+						Note:
+						* No such thing as JWT
+						* JWS - JSON Web Signature
+						  * Payload not encrypted
+						* JWE - JSON Web Encryption
+						  * Payload encrypted
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## What's a JWT?!
+
+						* Has 3 parts...
+						  * JOSE Header
+						  * Payload
+						  * Signature
+
+						Note:
+						* Javascript Object Signing and Encryption (JOSE)
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## What's a JWT?!
+						### JOSE Header
+
+						```JSON
+						{
+						  "typ": "JWT",
+						  "alg": "RS256",
+						  "x5t": "z039zdsFuizpBfBVK1Tn25QHYO0",
+						  "kid": "z039zdsFuizpBfBVK1Tn25QHYO0"
+						}
+						```
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## What's a JWT?!
+						### Payload
+
+						```JSON
+						{
+						  "aud": "https://graph.windows.net/",
+						  "iss": "https://sts.windows.net/6eddd185-7ad7-4ee3-9481-04644b9f43a2/",
+						  "iat": 1494510286,
+						  "nbf": 1494510286,
+						  "exp": 1494514186,
+						  "appid": "37952aa5-a0ff-4568-b26d-bda9a1942902",
+						  "deviceid": "fba7cd86-200b-4bff-a62d-127d86fc6828",
+						  "family_name": "GEMOLL",
+						  "given_name": "ANTHONY",
+						  "name": "GEMOLL, ANTHONY",
+						  "oid": "ed36722f-abfa-4289-a7ff-7f9fefe6b398",
+						  "scp": "User.Read",
+						  "unique_name": "anthonygemoll@northwesternmutual.com",
+						  "upn": "anthonygemoll@northwesternmutual.com",
+						  "uti": "J77mOxlQt0O-UDR10jAOAA",
+						  "ver": "1.0"
+						}
+						```
+						<!-- .element: style="width: 1100px" -->
+https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-token-and-claims
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## What's a JWT?!
+						### Signature
+
+						```JSON
+						mEiGaBU8GfBP-H8ywDBwi0uofEJrpjT3LH0jr-SZPOhSE987LJlucXwTtzpviZeutHnFY_bcZBM-fxdcIPoQNdcd2KIcwkFj9avjScIXRh8fOQW0EpOafONtsNQNrsyvHkP7iUFMqpPFDc4N1HmPWe3Kjl1Negdfz5P2zR9lk47oGBsjVe4UzsUeQyha6U8qYp3pnHjgs4AxN10lNBnD2g6rC1_-3m-VaVfkNY3-ZAUUpEeqb_RCHAFf3XnQiBGaPHeagEFkb7XjLWWopgTrsLnZxGORWkuDcv_BcTJfjqFJjXH8-nSXv2KJn1EhxdktAnGGad5gGuIMVQkh88iwQA
+						```
+
+					</textarea>
+				</section>
+
+
+				<section data-markdown>
+					<textarea data-template>
+						## Verification of a JWT
+						### Signature
+
+						* key signed tokens
+						  * well known endpoint
+						  * kid
+						  * JWK
+						* passphrase signed token
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Verification of a JWT
+						### Payload
+
+						* audience claim
+						* expiration time
+						* issuer claim
+						* nonce
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Claims
+						### Payload
+
+						* Not a state store
+						* Only put what you need
+						* Keep performance in mind
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Storage
+
+						* Local storage
+						* Session storage
+						* Cookies
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## DEMOS
+
+						* DIY JTWs
+						* 3rd Party IDP on mobile (Azure AD)
+						* 3rd Party IDP with SSO on mobile (Azure AD)
+						* 3rd Party IDP with 2FA on mobile (Okta)
+
+					</textarea>
+				</section>
+
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+                history: true,
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
