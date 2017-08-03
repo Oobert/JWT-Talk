@@ -27,10 +27,38 @@
 
 				<section data-markdown>
 					<textarea data-template>
+						* open http://jwt.calebb.net/
+
+						```javascript
+						eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IlZXVkljMVdEMVRrc2JiMzAxc2FzTTVrT3E1USIsImtpZCI6IlZXVkljMVdEMVRrc2JiMzAxc2FzTTVrT3E1USJ9.eyJhdWQiOiJodHRwczovL2dyYXBoLndpbmRvd3MubmV0LyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0L2M4MjgwNGViLTkzODgtNDJiOS04ZjI4LWM2N2Y2MjNiMjY5MS8iLCJpYXQiOjE1MDE3MjIyOTIsIm5iZiI6MTUwMTcyMjI5MiwiZXhwIjoxNTAxNzI2MTkyLCJhY3IiOiIxIiwiYWlvIjoiWTJGZ1lDaTN0clU4TXpISDhPYmZOcE9nNGpscmVmTVNEMTY2TldleWk4ZnZOQW5uSzhJQSIsImFsdHNlY2lkIjoiMTpsaXZlLmNvbTowMDAzNDAwMTg0MzkxNEVFIiwiYW1yIjpbInB3ZCJdLCJhcHBpZCI6IjgwMTA0ZTkzLTdhZDMtNGUwZS1hMDBhLTYwNjlhZjYxZTI4YyIsImFwcGlkYWNyIjoiMCIsImVfZXhwIjoyNjI4MDAsImVtYWlsIjoibm9vYmVydEBnbWFpbC5jb20iLCJmYW1pbHlfbmFtZSI6IkdlbW9sbCIsImdpdmVuX25hbWUiOiJUb255IiwiaWRwIjoibGl2ZS5jb20iLCJpcGFkZHIiOiI5OC4xNDQuMTExLjIzMyIsIm5hbWUiOiJUb255IEdlbW9sbCIsIm9pZCI6ImRhMTE2NjMyLTNhN2UtNDY4NC05ZTFlLTkzYzMyNzRhZDU2MyIsInBsYXRmIjoiMiIsInB1aWQiOiIxMDAzQkZGRDg2NkI2RkJGIiwic2NwIjoiVXNlci5SZWFkIiwic3ViIjoiMnliMXltU196WENXUDl0OE5LMmE4N1hHUjJxWkJYWjlEWW84U01IWWFSTSIsInRlbmFudF9yZWdpb25fc2NvcGUiOiJOQSIsInRpZCI6ImM4MjgwNGViLTkzODgtNDJiOS04ZjI4LWM2N2Y2MjNiMjY5MSIsInVuaXF1ZV9uYW1lIjoibGl2ZS5jb20jbm9vYmVydEBnbWFpbC5jb20iLCJ1dGkiOiJlaG1JbW9rQ2VFLXlYVGxxUUJRQUFBIiwidmVyIjoiMS4wIn0.QvPzu3t2FyOen1CPfqskLFxtZOqfLti1I51nAPtk0rM5735OtNyInl5pGidHQIaizWfMN0mHz67fHMRFAY1h1M-SLjIQCvrUN17-koroWAuSrAu9aqSnaVm0BfmoEUh3GnWuWsbWWW0Kh_yZgQDsFUYL1pu17ZKUhOZkFfRGE7RM9hXHNcv5fUl-tDUEFucMCo_MCJavK2nF2mi5g3V9R0xR3jJ3zAPYvStlLqXGE-WgfIUf-ORf8bd-CNvRL2zz1G1aFcx15gyyD99qdrR8Q14uHyrLjjkLAbmtakbDIs-o8C9q2yE3vY6mcxiJapceQs5GzSFC_KSmr6sla_O5IA
+						```
+
+						```javascript
+						eyJhbGciOiJSUzI1NiIsImtpZCI6InltRVlEeEMyX3N3RmdHQlFIbzdzajFOczFHR1gxY3JyY3FZc3ltTURvTE0ifQ.eyJ2ZXIiOjEsImp0aSI6IkFULjFEaUZuZTJfLWRldURMSGNtY0txbGk3aHBDbzBKZUpWbzVNdEhZZ3N0VlUuczBFYXlrcTV0YjNrMEdTdWlnbXY3UTJteGJjWE5hZ25NL2FGNDhtMDU1Zz0iLCJpc3MiOiJodHRwczovL2Rldi0xMDAwNDAub2t0YXByZXZpZXcuY29tIiwiYXVkIjoiaHR0cHM6Ly9kZXYtMTAwMDQwLm9rdGFwcmV2aWV3LmNvbSIsInN1YiI6IlRlc3RGYWNlQGRldndpLmNvbSIsImlhdCI6MTUwMTcyMjEwNCwiZXhwIjoxNTAxNzI1NzA0LCJjaWQiOiIwb2FiMWZxdmR5VjluRDJHUDBoNyIsInVpZCI6IjAwdWIxamowaXEwSHVNWEZ0MGg3Iiwic2NwIjpbImdyb3VwcyIsIm9mZmxpbmVfYWNjZXNzIiwib3BlbmlkIiwiYWRkcmVzcyIsImVtYWlsIiwicGhvbmUiLCJwcm9maWxlIl19.An9j2oyHfRizs9xTpyyYrMJXPY2ZVgHlfQ5LHADOY3My-7t5zGO4aKCnCPLMisLOT2MNxyCN8EBTtKB0FkeDFXu9KUusrVpEcvv9Fp18tLZE-3jpBs2zsHzX5GM9tOOS-m5skUCVK0amnIsKcfdSQsGqZAgLxzZiSgjxygabslrj9OEeKiBKzQEJb2j2h6DT57QSNWASXnM8Cre0Kby3oDlVPtdbEX7sQdWjH7_fXxUsesNt65ALUSJFIacVVVTb0-JfCGyaMC6-0huLI_kVjlvqtT8IeASJ1zWdEzrK1gYM93c7fMr2da9GaUOqLczj3sPyzSYutNW5XRZjDk2GZg
+                        ```
+
+						* npm start, s
+						* open hapi sample, start it, open web page
+						* Open Azure RN AD sample
+						* Open okta demo testface@devwi.com QWEqwe123
+
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
 						## Securing your campground with JSON Web Tokens (JWTs)
 					</textarea>
 				</section>
 
+				<section data-markdown>
+					<textarea data-template>
+						![Sponsors](/img/BackgroundsThat-Conference-Sponsors-Slide.png)
+
+						Note:
+						* Beer tasting
+					</textarea>
+				</section>
 
 				<section data-markdown>
 					<textarea data-template>
@@ -117,7 +145,7 @@
 					<textarea data-template>
 						## The JWT is a lie
 
-						![JWT pic](img/1-rw1iGL8kdjSI3hNYIiSXNw.png) <!-- .element: style="width: 80vh;" -->
+						![JWT pic](img/1-rw1iGL8kdjSI3hNYIiSXNw.png) <!-- .element: style="height: 40vh;" -->
 
 						Note:
 						* No such thing as JWT
@@ -125,6 +153,8 @@
 						  * Payload not encrypted
 						* JWE - JSON Web Encryption
 						  * Payload encrypted
+
+						* Javascript Object Signing and Encryption (JOSE)
 					</textarea>
 				</section>
 
@@ -133,20 +163,16 @@
 						## What's a JWT?!
 
 						* Has 3 parts...
-						  * JOSE Header
+						  * Header
 						  * Payload
 						  * Signature
-
-						Note:
-						* Javascript Object Signing and Encryption (JOSE)
-
 					</textarea>
 				</section>
 
 				<section data-markdown>
 					<textarea data-template>
 						## What's a JWT?!
-						### JOSE Header
+						### Header
 
 						```JSON
 						{
@@ -255,6 +281,24 @@ https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory
 
 				<section data-markdown>
 					<textarea data-template>
+						## A note on OAuth
+
+						* OAuth vs OpenId
+						* What about OpenId Connect?
+						* Many IDPs follow the OpenId Connect spec
+
+						Note:
+						* OAuth is for Authorization
+						** Get a key to access an api
+						* OpenId is for Authentication
+						** Get a token that represents the user
+						* OAuth can be abused for Authentication and will cause issue
+						* OAuth and OpenId merged under OpenId Connect in 2014
+					</textarea>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
 						## DEMOS
 
 						* DIY JTWs
@@ -262,8 +306,53 @@ https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory
 						* 3rd Party IDP with SSO on mobile (Azure AD)
 						* 3rd Party IDP with 2FA on mobile (Okta)
 
+
 					</textarea>
 				</section>
+
+				<section >
+					<video data-autoplay style="height: 55vh;">
+						<source data-src="img\azuread.mp4" type="video/mp4"   />
+					</video>
+				</section>
+
+
+
+				<section >
+					<video data-autoplay style="height: 55vh;">
+						<source data-src="img\azuread-sso.mov" type="video/mp4"   />
+					</video>
+				</section>
+
+				<section >
+					<video data-autoplay style="height: 55vh;">
+						<source data-src="img\okta.mov" type="video/mp4"   />
+					</video>
+				</section>
+
+				<section data-markdown>
+					<textarea data-template>
+						## Demo Recap
+
+						Note:
+						* Webview credential entry
+						* MFA security, txt sucks
+					</textarea>
+				</section>
+
+
+				<section data-markdown>
+					<textarea data-template>
+						## Questions??
+
+
+						* Tony Gemoll - @Oobert - tony.gemoll@gmail.com
+						* Enterprise Architect at Northwestern Mutual
+						* Organizer of Milwaukee JavaScript User Group
+					</textarea>
+				</section>
+
+
 
 
 			</div>
